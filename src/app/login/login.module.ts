@@ -5,17 +5,13 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPageRoutingModule } from './login-routing.module';
-import { IonicStorageModule } from '@ionic/storage';
 import { LoginPage } from './login.page';
+import { ApiService } from '../api.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    LoginPageRoutingModule,
-    IonicStorageModule.forRoot()
-  ],
-  declarations: [LoginPage]
+  imports: [CommonModule, FormsModule, IonicModule, LoginPageRoutingModule],
+  declarations: [LoginPage],
+  providers: [HttpClient],
 })
 export class LoginPageModule {}

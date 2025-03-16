@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Pieria</string>
+    <string name="title_activity_main">Pieria</string>
+    <string name="package_name">com.pieria.languageapp</string>
+    <string name="custom_url_scheme">com.pieria.languageapp</string>
+</resources>

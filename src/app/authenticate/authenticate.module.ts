@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { AuthenticatePageRoutingModule } from './authenticate-routing.module';
 
 import { AuthenticatePage } from './authenticate.page';
-import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   imports: [
@@ -15,8 +14,7 @@ import { IonicStorageModule } from '@ionic/storage';
     FormsModule,
     IonicModule,
     AuthenticatePageRoutingModule,
-    IonicStorageModule.forRoot()
   ],
-  declarations: [AuthenticatePage]
+  declarations: [AuthenticatePage],
 })
 export class AuthenticatePageModule {}

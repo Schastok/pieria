@@ -5,17 +5,19 @@ import { StudyPage } from './study.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: StudyPage
+    path: ':lessonId',
+    component: StudyPage,
   },
   {
-    path: 'do-set',
-    loadChildren: () => import('./do-set/do-set.module').then( m => m.DoSetPageModule)
+    path: ':lessonId/do-set',
+    loadChildren: () =>
+      import('./do-set/do-set.module').then((m) => m.DoSetPageModule),
   },
   {
-    path: 'view-set',
-    loadChildren: () => import('./view-set/view-set.module').then( m => m.ViewSetPageModule)
-  }
+    path: ':lessonId/view-set',
+    loadChildren: () =>
+      import('./view-set/view-set.module').then((m) => m.ViewSetPageModule),
+  },
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -8,15 +8,15 @@ import { SectionPageRoutingModule } from './section-routing.module';
 import { PipesModule } from '../../../pipes/pipes.module';
 import { SectionPage } from './section.page';
 
-
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     SectionPageRoutingModule,
-    PipesModule
+    PipesModule,
   ],
-  declarations: [SectionPage]
+  declarations: [SectionPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SectionPageModule {}

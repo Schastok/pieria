@@ -6,24 +6,44 @@ import { LessonsPage } from './lessons.page';
 const routes: Routes = [
   {
     path: '',
-    component: LessonsPage
+    component: LessonsPage,
   },
   {
     path: 'main',
-    loadChildren: () => import('./main/main.module').then( m => m.MainPageModule)
+    loadChildren: () =>
+      import('./main/main.module').then((m) => m.MainPageModule),
   },
+  // {
+  //   path: 'learn',
+  //   loadChildren: () => import('./learn/learn.module').then( m => m.LearnPageModule)
+  // },
   {
     path: 'learn',
-    loadChildren: () => import('./learn/learn.module').then( m => m.LearnPageModule)
+    children: [
+      {
+        path: ':lessonId',
+        loadChildren: () =>
+          import('./learn/learn.module').then((m) => m.LearnPageModule),
+      },
+      {
+        path: ':lessonId/section/:sectionId',
+        loadChildren: () =>
+          import('./learn/section/section.module').then(
+            (m) => m.SectionPageModule
+          ),
+      },
+    ],
   },
   {
     path: 'study',
-    loadChildren: () => import('./study/study.module').then( m => m.StudyPageModule)
+    loadChildren: () =>
+      import('./study/study.module').then((m) => m.StudyPageModule),
   },
   {
     path: 'quiz',
-    loadChildren: () => import('./quiz/quiz.module').then( m => m.QuizPageModule)
-  }
+    loadChildren: () =>
+      import('./quiz/quiz.module').then((m) => m.QuizPageModule),
+  },
 ];
 
 @NgModule({

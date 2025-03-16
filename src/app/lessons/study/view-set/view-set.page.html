@@ -1,19 +1,286 @@
-
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"
+  />
 </head>
 
-
-
 <ion-content class="content">
+  <div id="account" routerLink="/account">
+    <ion-icon id="account-icon" name="person"></ion-icon>
+  </div>
+  <div id="home" routerLink="/mycourses">
+    <ion-icon id="home-icon" name="home"></ion-icon>
+  </div>
+  <div class="spinnerdiv">
+    <ion-spinner id="spinner" *ngIf="!ready" name="bubbles"></ion-spinner>
+  </div>
 
-<div id="account" routerLink="/account"><ion-icon id="account-icon" name="person" ></ion-icon></div>
-<div id="home" routerLink="/mycourses"><ion-icon id="home-icon" name="home" ></ion-icon></div>
-<div class="spinnerdiv"><ion-spinner  id="spinner" *ngIf="!ready" name="bubbles"></ion-spinner></div>
+  <swiper-container
+    *ngIf="didInit"
+    #slides
+    [options]="slideOpts"
+    (ionSlideWillChange)="slide($event)"
+  >
+    <swiper-slide
+      *ngFor="let card of flipcardset"
+      (click)="changeshowside($event)"
+    >
+      <svg
+        *ngIf="showside === 0"
+        id="level{{card.Status}}"
+        width="100%"
+        height="100%"
+        version="1.1"
+        viewBox="0 0 875.37 662.23"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <pattern
+          *ngIf="card.image == ''"
+          id="image{{card.flipcardID}}"
+          x="0"
+          y="0"
+          patternUnits="objectBoundingBox"
+          height="1"
+          width="1"
+        >
+          <image
+            x="0"
+            y="0"
+            width="600"
+            xlink:href="https://www.e-fluent.com/media/images/user_10/flipcard_background.jpg"
+          ></image>
+        </pattern>
 
-<ion-slides *ngIf="didInit" #slides [options]="slideOpts" (ionSlideWillChange)="slide($event)">
+        <pattern
+          *ngIf="card.image != ''"
+          id="image{{card.flipcardID}}"
+          x="0"
+          y="0"
+          patternUnits="objectBoundingBox"
+          height="1"
+          width="1"
+        >
+          <image
+            x="0"
+            y="0"
+            width="600"
+            [attr.xlink:href]="'https://www.e-fluent.com/media/' + card.image"
+          ></image>
+        </pattern>
+        <g transform="translate(1.8439 -3.3629)">
+          <path
+            x="-1.8438932"
+            y="3.3629329"
+            width="875.28021"
+            height="658.43988"
+            rx="42.230354"
+            ry="46.564548"
+            d="m40.386 3.3629h790.82c23.396 0 42.23 20.768 42.23 46.565v565.31c0 25.797-18.835 46.565-42.23 46.565h-790.82c-23.396 0-42.23-20.768-42.23-46.565v-565.31c0-25.797 18.835-46.565 42.23-46.565z"
+            fill="#14a2af"
+            opacity=".699"
+            stroke="#4d4d4d"
+            stroke-width="2.2774"
+          />
+          <path id="water" d="" fill="#72d6e1" stroke-width="1.3863" />
+          <text
+            transform="scale(1.0093 .9908)"
+            x="825.42889"
+            y="579.16003"
+            font-size="27.709px"
+            letter-spacing="0px"
+            stroke-width="2.3091"
+            text-align="center"
+            text-anchor="middle"
+            word-spacing="0px"
+            xml:space="preserve"
+          >
+            <tspan
+              x="439.93542"
+              y="529.16003"
+              fill="#ffffff"
+              font-family="Arial"
+              font-size="60px"
+              stroke-width="2.3091"
+              text-align="center"
+              text-anchor="middle"
+              style="line-height: 1.25"
+            >
+              {{ card.Question | slice:0:26 }}
+            </tspan>
+            <tspan
+              x="439.93542"
+              y="559.16003"
+              fill="#ffffff"
+              font-family="Arial"
+              font-size="60px"
+              stroke-width="2.3091"
+              text-align="center"
+              text-anchor="middle"
+              style="line-height: 1.25"
+              dy="30"
+            >
+              {{ card.Question | slice:26:52}}
+            </tspan>
+            <tspan
+              x="439.93542"
+              y="579.16003"
+              fill="#ffffff"
+              font-family="Arial"
+              font-size="60px"
+              stroke-width="2.3091"
+              text-align="center"
+              text-anchor="middle"
+              style="line-height: 1.25"
+              dy="80"
+            >
+              {{ card.Question | slice:52}}
+            </tspan>
+          </text>
 
-<ion-slide *ngFor="let card of flipcardset" (click)="changeshowside($event)" >
+          <ellipse
+            cx="435.8"
+            cy="246.2"
+            rx="199.78"
+            ry="196.61"
+            [attr.fill]="'url(#image' + card.flipcardID + ')'"
+            fill-opacity=".85"
+          />
+        </g>
+      </svg>
+
+      <svg
+        class="animated flipInY"
+        *ngIf="showside === 1"
+        id="level{{card.Status}}"
+        width="100%"
+        height="100%"
+        version="1.1"
+        viewBox="0 0 875.37 662.23"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+      >
+        <pattern
+          *ngIf="card.image == ''"
+          id="image{{card.flipcardID}}"
+          x="0"
+          y="0"
+          patternUnits="objectBoundingBox"
+          height="1"
+          width="1"
+        >
+          <image
+            x="0"
+            y="0"
+            width="600"
+            xlink:href="https://www.e-fluent.com/media/images/user_10/flipcard_background.jpg"
+          ></image>
+        </pattern>
+
+        <pattern
+          *ngIf="card.image != ''"
+          id="image{{card.flipcardID}}"
+          x="0"
+          y="0"
+          patternUnits="objectBoundingBox"
+          height="1"
+          width="1"
+        >
+          <image
+            x="0"
+            y="0"
+            width="600"
+            [attr.xlink:href]="'https://www.e-fluent.com/media/' + card.image"
+          ></image>
+        </pattern>
+
+        <g transform="translate(1.8439 -3.3629)">
+          <path
+            x="-1.8438932"
+            y="3.3629329"
+            width="875.28021"
+            height="658.43988"
+            rx="42.230354"
+            ry="46.564548"
+            d="m40.386 3.3629h790.82c23.396 0 42.23 20.768 42.23 46.565v565.31c0 25.797-18.835 46.565-42.23 46.565h-790.82c-23.396 0-42.23-20.768-42.23-46.565v-565.31c0-25.797 18.835-46.565 42.23-46.565z"
+            fill="#14a2af"
+            opacity=".699"
+            stroke="#4d4d4d"
+            stroke-width="2.2774"
+          />
+          <path id="water" d="" fill="#72d6e1" stroke-width="1.3863" />
+          <text
+            transform="scale(1.0093 .9908)"
+            x="825.42889"
+            y="579.16003"
+            font-size="27.709px"
+            letter-spacing="0px"
+            stroke-width="2.3091"
+            text-align="center"
+            text-anchor="middle"
+            word-spacing="0px"
+            xml:space="preserve"
+          >
+            <tspan
+              x="439.93542"
+              y="529.16003"
+              fill="#ffffff"
+              font-family="Arial"
+              font-size="60px"
+              stroke-width="2.3091"
+              text-align="center"
+              text-anchor="middle"
+              style="line-height: 1.25"
+            >
+              {{ card.Answers | slice:0:26 }}
+            </tspan>
+            <tspan
+              x="439.93542"
+              y="559.16003"
+              fill="#ffffff"
+              font-family="Arial"
+              font-size="60px"
+              stroke-width="2.3091"
+              text-align="center"
+              text-anchor="middle"
+              style="line-height: 1.25"
+              dy="30"
+            >
+              {{ card.Answers | slice:26:52}}
+            </tspan>
+            <tspan
+              x="439.93542"
+              y="579.16003"
+              fill="#ffffff"
+              font-family="Arial"
+              font-size="60px"
+              stroke-width="2.3091"
+              text-align="center"
+              text-anchor="middle"
+              style="line-height: 1.25"
+              dy="80"
+            >
+              {{ card.Answers | slice:52}}
+            </tspan>
+          </text>
+
+          <ellipse
+            cx="435.8"
+            cy="246.2"
+            rx="199.78"
+            ry="196.61"
+            [attr.fill]="'url(#image' + card.flipcardID + ')'"
+            fill-opacity=".85"
+          />
+        </g>
+      </svg>
+    </swiper-slide>
+  </swiper-container>
+
+  <!-- <ion-slides *ngIf="didInit" #slides [options]="slideOpts" (ionSlideWillChange)="slide($event)">
+
+<ion-slide *ngFor="let card of flipcardset" (click)="changeshowside($event)" > -->
 
   <!--
     <ion-card *ngIf="showside === 0">
@@ -33,7 +300,7 @@
        <image  *ngIf="card.image != ''" x="0" y="0" width="600" [attr.xlink:href]="card.image"></image>
        -->
 
-       <svg  *ngIf="showside === 0"  id="level{{card.Status}}"  width="100%" height="100%" version="1.1" viewBox="0 0 875.37 662.23" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- <svg  *ngIf="showside === 0"  id="level{{card.Status}}"  width="100%" height="100%" version="1.1" viewBox="0 0 875.37 662.23" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
 
                <pattern *ngIf="card.image == ''" id="image{{card.flipcardID}}" x="0" y="0" patternUnits="objectBoundingBox" height="1" width="1">
@@ -82,8 +349,8 @@
 
                      <ellipse cx="435.8" cy="246.2" rx="199.78" ry="196.61"  [attr.fill]="'url(#image' + card.flipcardID + ')'" fill-opacity=".85"/>
                     </g>
-                   </svg>
-<!--
+                   </svg> -->
+  <!--
           <ion-card *ngIf="showside === 1" class='animated flipInY'>
 
               <ion-card-header *ngIf="card.image === ''">
@@ -98,22 +365,39 @@
 
                 </ion-card>
 -->
-  </ion-slide>
-</ion-slides>
+  <!-- </ion-slide>
+</ion-slides> -->
 
-<div *ngIf="training_1" class="training_tap" (click)="changeshowside($event)"><img class="tap_gesture" src="/assets/images/dot_dark.svg"></div>
+  <div *ngIf="training_1" class="training_tap" (click)="changeshowside($event)">
+    <img class="tap_gesture" src="/assets/images/dot_dark.svg" />
+  </div>
 
-<div *ngIf="training_2" class="training_swipe" id="training_2">
-<div *ngIf="training_2" class="swipe_gesture">
-			<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 47.619 68.23"><title>noun_692985</title><path d="M59.773,79.1l0.033-.176c2.062-9.136,9.688-20.832,8.023-31.685-0.45-2.583-.877-3.861-1.383-4.527-0.33-.435-0.807-0.769-2.285-0.769a4.6,4.6,0,0,0-1.063.116L63.041,47.7a1.875,1.875,0,0,1-3.749-.035l0.061-6.554c0.071-2.036-.252-2.656-0.443-2.862-0.169-.181-0.651-0.485-2.388-0.485a2.962,2.962,0,0,0-2.436.915l-0.07,5.843a1.875,1.875,0,1,1-3.749-.035l0.062-6.553c0.071-2.036-.252-2.657-0.443-2.864-0.169-.181-0.653-0.485-2.389-0.485a3.423,3.423,0,0,0-2.054.551l-0.177.17-0.025,9.4a1.875,1.875,0,0,1-3.749-.011L41.554,21.73c0.071-2.042-.25-2.66-0.443-2.869-0.169-.181-0.652-0.485-2.389-0.485a3.225,3.225,0,0,0-2.223.688,2.533,2.533,0,0,0-.654,2.17l0,0.116V54.614a1.875,1.875,0,0,1-3.75,0V47.837l-0.875.232a4.476,4.476,0,0,0-3.115,3.319A10.042,10.042,0,0,0,29.864,58.8c3.487,5.315,8.108,11.265,9.58,18.686l0.251,1.521Z" transform="translate(-24.187 -14.626)" style="fill:#fff"/><path d="M61.32,82.856l-23.33-.1a1.875,1.875,0,0,1-1.863-1.759c-0.476-7.733-5.126-13.62-9.4-20.132-2.013-3.068-3.083-6.96-2.266-10.351,0.766-3.185,3.113-5.585,7-6.378l0.64-.087V21.35l-0.011-.659a6.017,6.017,0,0,1,1.865-4.38,6.923,6.923,0,0,1,4.769-1.685c1.871,0,3.817.263,5.136,1.683,1.293,1.391,1.519,3.4,1.445,5.492l-0.026,9.37,0.724-.2a8.546,8.546,0,0,1,1.5-.129,10.564,10.564,0,0,1,2.776.309,4.92,4.92,0,0,1,2.36,1.374,4.7,4.7,0,0,1,.782,1.153L53.7,34.519l1.325-.374a8.535,8.535,0,0,1,1.495-.129,10.564,10.564,0,0,1,2.776.309A4.922,4.922,0,0,1,61.657,35.7a5.227,5.227,0,0,1,1.235,2.486l0.015,0.11,0.288-.049a8.892,8.892,0,0,1,.966-0.052,6.109,6.109,0,0,1,5.272,2.251c1.127,1.485,1.653,3.64,2.1,6.188,1.965,12.813-7.146,26.223-8.345,34.614A1.875,1.875,0,0,1,61.32,82.856ZM59.773,79.1l0.033-.176c2.062-9.136,9.688-20.832,8.023-31.685-0.45-2.583-.877-3.861-1.383-4.527-0.33-.435-0.807-0.769-2.285-0.769a4.6,4.6,0,0,0-1.063.116L63.041,47.7a1.875,1.875,0,0,1-3.749-.035l0.061-6.554c0.071-2.036-.252-2.656-0.443-2.862-0.169-.181-0.651-0.485-2.388-0.485a2.962,2.962,0,0,0-2.436.915l-0.07,5.843a1.875,1.875,0,1,1-3.749-.035l0.062-6.553c0.071-2.036-.252-2.657-0.443-2.864-0.169-.181-0.653-0.485-2.389-0.485a3.423,3.423,0,0,0-2.054.551l-0.177.17-0.025,9.4a1.875,1.875,0,0,1-3.749-.011L41.554,21.73c0.071-2.042-.25-2.66-0.443-2.869-0.169-.181-0.652-0.485-2.389-0.485a3.225,3.225,0,0,0-2.223.688,2.533,2.533,0,0,0-.654,2.17l0,0.116V54.614a1.875,1.875,0,0,1-3.75,0V47.837l-0.875.232a4.476,4.476,0,0,0-3.115,3.319A10.042,10.042,0,0,0,29.864,58.8c3.487,5.315,8.108,11.265,9.58,18.686l0.251,1.521Z" transform="translate(-24.187 -14.626)"/></svg>
-			</div>
-			</div>
+  <div *ngIf="training_2" class="training_swipe" id="training_2">
+    <div *ngIf="training_2" class="swipe_gesture">
+      <svg
+        id="Layer_1"
+        data-name="Layer 1"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 47.619 68.23"
+      >
+        <title>noun_692985</title>
+        <path
+          d="M59.773,79.1l0.033-.176c2.062-9.136,9.688-20.832,8.023-31.685-0.45-2.583-.877-3.861-1.383-4.527-0.33-.435-0.807-0.769-2.285-0.769a4.6,4.6,0,0,0-1.063.116L63.041,47.7a1.875,1.875,0,0,1-3.749-.035l0.061-6.554c0.071-2.036-.252-2.656-0.443-2.862-0.169-.181-0.651-0.485-2.388-0.485a2.962,2.962,0,0,0-2.436.915l-0.07,5.843a1.875,1.875,0,1,1-3.749-.035l0.062-6.553c0.071-2.036-.252-2.657-0.443-2.864-0.169-.181-0.653-0.485-2.389-0.485a3.423,3.423,0,0,0-2.054.551l-0.177.17-0.025,9.4a1.875,1.875,0,0,1-3.749-.011L41.554,21.73c0.071-2.042-.25-2.66-0.443-2.869-0.169-.181-0.652-0.485-2.389-0.485a3.225,3.225,0,0,0-2.223.688,2.533,2.533,0,0,0-.654,2.17l0,0.116V54.614a1.875,1.875,0,0,1-3.75,0V47.837l-0.875.232a4.476,4.476,0,0,0-3.115,3.319A10.042,10.042,0,0,0,29.864,58.8c3.487,5.315,8.108,11.265,9.58,18.686l0.251,1.521Z"
+          transform="translate(-24.187 -14.626)"
+          style="fill: #fff"
+        />
+        <path
+          d="M61.32,82.856l-23.33-.1a1.875,1.875,0,0,1-1.863-1.759c-0.476-7.733-5.126-13.62-9.4-20.132-2.013-3.068-3.083-6.96-2.266-10.351,0.766-3.185,3.113-5.585,7-6.378l0.64-.087V21.35l-0.011-.659a6.017,6.017,0,0,1,1.865-4.38,6.923,6.923,0,0,1,4.769-1.685c1.871,0,3.817.263,5.136,1.683,1.293,1.391,1.519,3.4,1.445,5.492l-0.026,9.37,0.724-.2a8.546,8.546,0,0,1,1.5-.129,10.564,10.564,0,0,1,2.776.309,4.92,4.92,0,0,1,2.36,1.374,4.7,4.7,0,0,1,.782,1.153L53.7,34.519l1.325-.374a8.535,8.535,0,0,1,1.495-.129,10.564,10.564,0,0,1,2.776.309A4.922,4.922,0,0,1,61.657,35.7a5.227,5.227,0,0,1,1.235,2.486l0.015,0.11,0.288-.049a8.892,8.892,0,0,1,.966-0.052,6.109,6.109,0,0,1,5.272,2.251c1.127,1.485,1.653,3.64,2.1,6.188,1.965,12.813-7.146,26.223-8.345,34.614A1.875,1.875,0,0,1,61.32,82.856ZM59.773,79.1l0.033-.176c2.062-9.136,9.688-20.832,8.023-31.685-0.45-2.583-.877-3.861-1.383-4.527-0.33-.435-0.807-0.769-2.285-0.769a4.6,4.6,0,0,0-1.063.116L63.041,47.7a1.875,1.875,0,0,1-3.749-.035l0.061-6.554c0.071-2.036-.252-2.656-0.443-2.862-0.169-.181-0.651-0.485-2.388-0.485a2.962,2.962,0,0,0-2.436.915l-0.07,5.843a1.875,1.875,0,1,1-3.749-.035l0.062-6.553c0.071-2.036-.252-2.657-0.443-2.864-0.169-.181-0.653-0.485-2.389-0.485a3.423,3.423,0,0,0-2.054.551l-0.177.17-0.025,9.4a1.875,1.875,0,0,1-3.749-.011L41.554,21.73c0.071-2.042-.25-2.66-0.443-2.869-0.169-.181-0.652-0.485-2.389-0.485a3.225,3.225,0,0,0-2.223.688,2.533,2.533,0,0,0-.654,2.17l0,0.116V54.614a1.875,1.875,0,0,1-3.75,0V47.837l-0.875.232a4.476,4.476,0,0,0-3.115,3.319A10.042,10.042,0,0,0,29.864,58.8c3.487,5.315,8.108,11.265,9.58,18.686l0.251,1.521Z"
+          transform="translate(-24.187 -14.626)"
+        />
+      </svg>
+    </div>
+  </div>
 
-      <div class="training_wrapper" *ngIf="training && ready">
-        <div class="training_card">
+  <div class="training_wrapper" *ngIf="training && ready">
+    <div class="training_card">
       <ion-icon class="training_icon" name="bulb-outline"></ion-icon>
       <span class="training_instructions">{{training_text}}</span>
-      </div>
-        </div>
-
+    </div>
+  </div>
 </ion-content>

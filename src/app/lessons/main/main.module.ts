@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { MainPageRoutingModule } from './main-routing.module';
 import { PipesModule } from '../../pipes/pipes.module';
 import { MainPage } from './main.page';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   imports: [
@@ -14,8 +15,9 @@ import { MainPage } from './main.page';
     FormsModule,
     IonicModule,
     MainPageRoutingModule,
-    PipesModule
+    PipesModule,
   ],
-  declarations: [MainPage]
+  declarations: [MainPage],
+  providers: [Storage],
 })
 export class MainPageModule {}

@@ -8,6 +8,7 @@ import { LessonsPageRoutingModule } from './lessons-routing.module';
 import { PipesModule } from '../pipes/pipes.module';
 
 import { LessonsPage } from './lessons.page';
+import { Storage } from '@ionic/storage';
 
 @NgModule({
   imports: [
@@ -15,9 +16,9 @@ import { LessonsPage } from './lessons.page';
     FormsModule,
     IonicModule,
     LessonsPageRoutingModule,
-    PipesModule
+    PipesModule,
   ],
   declarations: [LessonsPage],
-
+  providers: [Storage],
 })
 export class LessonsPageModule {}

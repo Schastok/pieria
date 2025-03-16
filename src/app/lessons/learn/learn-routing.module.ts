@@ -5,13 +5,14 @@ import { LearnPage } from './learn.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: LearnPage
+    path: ':lessonId',
+    component: LearnPage,
   },
   {
-    path: 'section',
-    loadChildren: () => import('./section/section.module').then( m => m.SectionPageModule)
-  }
+    path: ':lessonId/section/:sectionId',
+    loadChildren: () =>
+      import('./section/section.module').then((m) => m.SectionPageModule),
+  },
 ];
 
 @NgModule({

@@ -1,11 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+// import { CommonModule } from '@angular/common';
+// import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
 import { CoursedetailsPageRoutingModule } from './coursedetails-routing.module';
-import { PipesModule } from '../../pipes/pipes.module';
+
+// import { CoursedetailsPage } from './coursedetails.page';
+import { PipesModule } from 'src/app/pipes/pipes.module';
 import { CoursedetailsPage } from './coursedetails.page';
 
 @NgModule({
@@ -14,8 +18,8 @@ import { CoursedetailsPage } from './coursedetails.page';
     FormsModule,
     IonicModule,
     CoursedetailsPageRoutingModule,
-    PipesModule
+    PipesModule,
   ],
-  declarations: [CoursedetailsPage]
+  declarations: [CoursedetailsPage],
 })
 export class CoursedetailsPageModule {}

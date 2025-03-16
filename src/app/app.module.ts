@@ -3,43 +3,34 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { NavigationBar } from '@ionic-native/navigation-bar/ngx';
-//import { NavigationBarColor } from '@ionic-plugin-navigation-bar-color';
 import { AppRoutingModule } from './app-routing.module';
+// import { FlipModule } from 'ngx-flip';
+// import { AdMobFree } from '@ionic-native/admob-free/ngx';
+import { File } from '@awesome-cordova-plugins/file/ngx';
+import { Media } from '@awesome-cordova-plugins/media/ngx';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { NativeAudio } from '@awesome-cordova-plugins/native-audio/ngx';
 
-
-import { HttpClientModule } from '@angular/common/http';
-import { FlipModule } from 'ngx-flip';
-//import { DragDropModule } from '@angular/cdk/drag-drop';
-import { IonicStorageModule } from '@ionic/storage';
-import { NativeAudio } from '@ionic-native/native-audio/ngx';
-
-import  { Media } from '@ionic-native/media/ngx';
-import  { File } from '@ionic-native/file/ngx';
-
-import { AdMobFree } from '@ionic-native/admob-free/ngx';
-import {InAppBrowser} from '@ionic-native/in-app-browser/ngx';
-//import { SafePipe } from './safe.pipe';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 @NgModule({
   declarations: [AppComponent],
-  entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, FlipModule, IonicStorageModule.forRoot()],
-  providers: [
-    StatusBar,
-    NavigationBar,
-    //NavigationBarColor,
-     AdMobFree,
-    NativeAudio,
-    SplashScreen,
-    InAppBrowser,
-    Media,
-    File,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
   ],
-  bootstrap: [AppComponent]
+  providers: [
+    HttpClient,
+    NativeAudio,
+    InAppBrowser,
+    File,
+    Media,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,40 +1,82 @@
-<ion-header>
-</ion-header>
-
+<ion-header> </ion-header>
 
 <ion-content>
-<div id="account" routerLink="/account"><ion-icon id="account-icon" name="person" ></ion-icon></div>
-   <div id="home" routerLink="/mycourses"><ion-icon id="home-icon" name="home" ></ion-icon></div>
-  <div class="spinnerdiv"><ion-spinner  id="spinner" *ngIf="!ready && available" name="bubbles"></ion-spinner></div>
-    <ion-slides *ngIf="didInit && available" [options]="slideConfig" #slides>
-           <ion-slide *ngFor="let item of sectiondetails" id="section{{item.position}}" >
+  <div id="account" routerLink="/account">
+    <ion-icon id="account-icon" name="person"></ion-icon>
+  </div>
+  <div id="home" routerLink="/mycourses">
+    <ion-icon id="home-icon" name="home"></ion-icon>
+  </div>
+  <div class="spinnerdiv">
+    <ion-spinner
+      id="spinner"
+      *ngIf="!ready && available"
+      name="bubbles"
+    ></ion-spinner>
+  </div>
 
-             <div class="slide" id="htmlslide" *ngIf="item.type === 'text'" [innerHTML]="item.content | safe: 'html'">
-              </div>
-              <div  class="slide" *ngIf="item.type === 'image'">
-                <img [src]="'https://www.e-fluent.com'+item.path"/>
-               </div>
-               <div class="slide" *ngIf="item.type === 'audio'">
-                 <audio controls [src]="'https://www.e-fluent.com'+item.path" type='audio/mp3'></audio>
-                </div>
-                <div class="slide" *ngIf="item.type === 'video'" >
-                  <h2 class="title">{{item.title}}</h2>
-                  <div class="description">{{item.description}}</div>
-                  <video controls [src]="'https://www.e-fluent.com'+item.path" type='video/mp4'></video>
-                 </div>
+  <swiper-container
+    *ngIf="didInit && available"
+    #swiperContainer
+    [slidesPerView]="1"
+    [centeredSlides]="true"
+    [autoHeight]="true"
+  >
+    <swiper-slide
+      *ngFor="let item of sectiondetails"
+      id="section{{item.position}}"
+    >
+      <div
+        class="slide"
+        id="htmlslide"
+        *ngIf="item.type === 'text'"
+        [innerHTML]="item.content | safe: 'html'"
+      ></div>
+      <div class="slide" *ngIf="item.type === 'image'">
+        <img [src]="'https://www.e-fluent.com'+item.path" />
+      </div>
+      <div class="slide" *ngIf="item.type === 'audio'">
+        <audio
+          controls
+          [src]="'https://www.e-fluent.com'+item.path"
+          type="audio/mp3"
+        ></audio>
+      </div>
+      <div class="slide" *ngIf="item.type === 'video'">
+        <h2 class="title">{{item.title}}</h2>
+        <div class="description">{{item.description}}</div>
+        <video
+          controls
+          [src]="'https://www.e-fluent.com'+item.path"
+          type="video/mp4"
+        ></video>
+      </div>
+    </swiper-slide>
+  </swiper-container>
 
-
-           </ion-slide>
-
-    </ion-slides>
-
-<div class="premium_err" *ngIf="!available"> This Section of the lesson is premium content. Please go to your account and upgrade to premium</div>
+  <div class="premium_err" *ngIf="!available">
+    This Section of the lesson is premium content. Please go to your account and
+    upgrade to premium
+  </div>
 </ion-content>
 
-
-<ion-footer>
-  <div id='nav'>
-    <div  *ngIf="!disablePrevBtn" class="navigation" id="nav-back" (click)="back()" ><ion-icon class='nav-icon' name="chevron-back-outline"></ion-icon></div>
-  <div *ngIf="!disableNextBtn"  class="navigation" id="nav-next" (click)="next()" ><ion-icon class='nav-icon' name="chevron-forward-outline"></ion-icon></div>
+<!-- <ion-footer>
+  <div id="nav">
+    <div
+      *ngIf="!disablePrevBtn"
+      class="navigation"
+      id="nav-prev"
+      (click)="mySwiper.slidePrev()"
+    >
+      <ion-icon class="nav-icon" name="chevron-back-outline"></ion-icon>
+    </div>
+    <div
+      *ngIf="!disableNextBtn"
+      class="navigation"
+      id="nav-next"
+      (click)="mySwiper.slideNext()"
+    >
+      <ion-icon class="nav-icon" name="chevron-forward-outline"></ion-icon>
+    </div>
   </div>
-</ion-footer>
+</ion-footer> -->

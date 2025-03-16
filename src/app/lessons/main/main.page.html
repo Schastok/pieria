@@ -71,114 +71,230 @@
      <ion-progress-bar id="prog" value="{{overallprogress}}"></ion-progress-bar>
  -->
 
-
-
- <ion-content>
-
-     <div id="account" routerLink="/account"><ion-icon id="account-icon" name="person" ></ion-icon></div>
-     <div id="home" routerLink="/mycourses"><ion-icon id="home-icon" name="home" ></ion-icon></div>
-
-<div class='description' [innerHTML]="lessonDescription | safe: 'html'"></div>
-
- <div class="title">{{ lessonName }}</div>
- <div class="wrapper"  *ngIf="!ready1">
-<div class="spinnerdiv" id="first_section_spinner_div"><ion-spinner  class="spinner" id="#first_section_spinner"  name="bubbles"></ion-spinner></div>
+<ion-content>
+  <div id="account" routerLink="/account">
+    <ion-icon id="account-icon" name="person"></ion-icon>
+  </div>
+  <div id="home" routerLink="/mycourses">
+    <ion-icon id="home-icon" name="home"></ion-icon>
   </div>
 
+  <div class="description" [innerHTML]="lessonDescription | safe: 'html'"></div>
 
-
-<div class='content'></div>
-<div class="wrapper" *ngIf="ready1 && ready2 && ready3">
-
-
-  <div class="first_section_wrapper" *ngFor="let section of sections; let i = index">
-
-    <div class="first_section" *ngIf="section == first_section" [routerLink]="['../../../../../../learn/', lessonId, 'section', section.Section_ID]" >
-      <div><span class="first_section_name">{{section.name}}</span></div>
-      <div class="first_section_description">{{first_section_description}}</div>
-
-       <img class='first_section_img'  [src]="lessonImage"/>
-
+  <div class="title">{{ lessonName }}</div>
+  <div class="wrapper" *ngIf="!ready1">
+    <div class="spinnerdiv" id="first_section_spinner_div">
+      <ion-spinner
+        class="spinner"
+        id="#first_section_spinner"
+        name="bubbles"
+      ></ion-spinner>
+    </div>
   </div>
 
+  <div class="content"></div>
+  <div class="wrapper" *ngIf="ready1 && ready2 && ready3">
+    <div
+      class="first_section_wrapper"
+      *ngFor="let section of sections; let i = index"
+    >
+      <div
+        class="first_section"
+        *ngIf="section == first_section"
+        [routerLink]="['/lessons/learn', lessonId, 'section', section.Section_ID]"
+      >
+        <div><span class="first_section_name">{{section.name}}</span></div>
+        <div class="first_section_description">
+          {{first_section_description}}
+        </div>
+
+        <img class="first_section_img" [src]="lessonImage" />
+      </div>
+    </div>
+
+    <div class="subtitle">Learn the basics!</div>
+    <div class="spinnerdiv" *ngIf="!ready2">
+      <ion-spinner
+        class="spinner"
+        id="#section_spinner"
+        name="bubbles"
+      ></ion-spinner>
+    </div>
+    <div
+      class="section_wrapper"
+      *ngFor="let section of sections; let i = index"
+    >
+      <div class="section" *ngIf="section !== first_section">
+        <div>
+          <span class="section_name">{{section.name}}</span>
+          <object
+            class="section_premium_icon"
+            *ngIf="section.Subscrmodel === 1"
+            type="image/svg+xml"
+            data="/assets/images/premium.svg"
+          ></object>
+
+          <object
+            class="section_done_icon"
+            *ngIf="sections_done[section.Section_ID] === 1"
+            type="image/svg+xml"
+            data="/assets/images/done2.svg"
+          ></object>
+          <object
+            class="section_done_icon"
+            *ngIf="sections_done[section.Section_ID] === 0"
+            class="vocab_done_icon"
+            type="image/svg+xml"
+            data="/assets/images/done2.svg"
+          ></object>
+        </div>
+
+        <ion-button
+          shape="round"
+          color="white"
+          class="entersection"
+          [routerLink]="['/lessons/learn', lessonId, 'section', section.Section_ID]"
+          >study</ion-button
+        >
+        <div><img class="section_img" src="/assets/images/study.jpg" /></div>
+      </div>
+    </div>
+    <div class="spinnerdiv" *ngIf="!ready3">
+      <ion-spinner
+        class="spinner"
+        id="#vocab_spinner"
+        name="bubbles"
+      ></ion-spinner>
+    </div>
+    <div class="vocab_wrapper">
+      <div class="vocab" *ngIf="flipcardlist?.length > 0">
+        <div>
+          <span class="vocab_name">Vocabulary</span
+          ><object
+            class="vocab_done_icon"
+            *ngIf="flipdone"
+            type="image/svg+xml"
+            data="/assets/images/done2.svg"
+          ></object>
+        </div>
+
+        <ion-button
+          shape="round"
+          color="white"
+          class="entervocabstudy"
+          [routerLink]="['/lessons/study', lessonId, 'view-set']"
+          >study</ion-button
+        >
+        <ion-button
+          shape="round"
+          color="white"
+          class="entervocabquiz"
+          [routerLink]="['/lessons/study', lessonId, 'do-set']"
+          >quiz</ion-button
+        >
+
+        <div><img class="vocab_img" src="/assets/images/words.jpg" /></div>
+      </div>
+    </div>
+
+    <div class="subtitle">Time to practice!</div>
+    <div class="spinnerdiv" *ngIf="!ready4">
+      <ion-spinner
+        class="spinner"
+        id="#quiz_spinner"
+        name="bubbles"
+      ></ion-spinner>
+    </div>
+
+    <div class="boxwrapper">
+      <div *ngFor="let quiz of exercises; let i = index">
+        <div *ngIf="(quiz.Type === 8) && quiz.Evaluation <= -100" class="box">
+          <span class="prc">please wait for evaluation</span>
+        </div>
+        <div
+          *ngIf="(quiz.Type === 8) && quiz.Evaluation >= 0"
+          class="box"
+          [routerLink]="['/lessons/quiz', lessonId, quiz.EvaluationID]"
+        >
+          <span class="prc">{{quiz.Evaluation | number:'1.0-0'}}%</span>
+        </div>
+        <div
+          *ngIf="(quiz.Type === 8) && quiz.Evaluation === -1"
+          class="box"
+          [routerLink]="['/lessons/quiz', lessonId, 'do-quiz', quiz.ID]"
+        >
+          <span class="prc"></span>
+        </div>
+
+        <div
+          *ngIf="(quiz.Type !== 8)"
+          class="box"
+          [routerLink]="['/lessons/quiz', lessonId, 'do-quiz', quiz.ID]"
+        >
+          <object
+            class="box_premium_icon"
+            *ngIf="quiz.Subscrmodel === 1"
+            type="image/svg+xml"
+            data="/assets/images/premium.svg"
+          ></object>
+          <object
+            class="box_premium_icon"
+            style="visibility: hidden"
+            *ngIf="quiz.Subscrmodel === 0"
+            type="image/svg+xml"
+            data="/assets/images/premium.svg"
+          ></object>
+          <img
+            *ngIf="(quiz.Type === 1 || quiz.Type === 2)"
+            class="box_img"
+            src="/assets/images/quiz.jpg"
+          />
+          <img
+            *ngIf="quiz.Type === 6"
+            class="box_img"
+            src="/assets/images/quiz.jpg"
+          />
+          <img
+            *ngIf="quiz.Type === 3"
+            class="icon"
+            class="box_img"
+            src="/assets/images/quiz.jpg"
+          />
+          <img *ngIf="quiz.Type === 7" class="box_img" [src]="lessonImage" />
+          <img
+            *ngIf="quiz.Type === 9"
+            class="icon"
+            class="box_img"
+            src="/assets/images/write.jpg"
+          />
+          <img
+            *ngIf="quiz.Type === 10"
+            class="icon"
+            class="box_img"
+            src="/assets/images/speak.jpg"
+          />
+          <object
+            class="box_done_icon"
+            *ngIf="quiz.Evaluation >= 80"
+            type="image/svg+xml"
+            data="/assets/images/done2.svg"
+          ></object>
+          <object
+            class="box_done_icon"
+            style="visibility: hidden"
+            *ngIf="quiz.Evaluation < 80"
+            type="image/svg+xml"
+            data="/assets/images/done2.svg"
+          ></object>
+          <div class="boxname">{{quiz.Title}}</div>
+          <span *ngIf="quiz.Evaluation >= 0" class="prc"
+            >{{quiz.Evaluation | number:'1.0-0'}}%</span
+          >
+        </div>
+      </div>
+    </div>
   </div>
-
-
- <div class="subtitle">Learn the basics!</div>
-<div class="spinnerdiv" *ngIf="!ready2"><ion-spinner  class="spinner" id="#section_spinner"  name="bubbles"></ion-spinner></div>
-  <div class="section_wrapper" *ngFor="let section of sections; let i = index">
-
-    <div class="section" *ngIf="section !== first_section"  >
-      <div><span class="section_name">{{section.name}}</span>  <object  class="section_premium_icon" *ngIf="section.Subscrmodel === 1" type="image/svg+xml" data="/assets/images/premium.svg"></object>
-
-        <object  class="section_done_icon" *ngIf="sections_done[section.Section_ID] === 1" type="image/svg+xml" data="/assets/images/done2.svg"></object>
-        <object  class="section_done_icon" *ngIf="sections_done[section.Section_ID] === 0"  class="vocab_done_icon" type="image/svg+xml" data="/assets/images/done2.svg"></object></div>
-
-
-<ion-button shape="round" color="white" class="entersection" [routerLink]="['../../../../../../learn/', lessonId, 'section', section.Section_ID]">study</ion-button>
-<div>  <img class='section_img'  src="/assets/images/study.jpg"/></div>
-  </div>
-  </div>
-<div class="spinnerdiv" *ngIf="!ready3"><ion-spinner  class="spinner" id="#vocab_spinner"  name="bubbles"></ion-spinner></div>
-<div class="vocab_wrapper">
-
-  <div class="vocab"  *ngIf="flipcardlist?.length > 0">
-       <div><span class="vocab_name">Vocabulary</span><object  class="vocab_done_icon" *ngIf="flipdone" type="image/svg+xml" data="/assets/images/done2.svg"></object>
-       </div>
-
-
-
-       <ion-button shape="round" color="white" class="entervocabstudy" [routerLink]="['../../../../../../study/', lessonId, 'view_set']">study</ion-button>
-              <ion-button shape="round" color="white" class="entervocabquiz" [routerLink]="['../../../../../../study/', lessonId, 'do_set']">quiz</ion-button>
-
-       <div>  <img class='vocab_img'  src="/assets/images/words.jpg"/></div>
-     </div>
-
-
- </div>
-
-<div class="subtitle">Time to practice!</div>
-<div class="spinnerdiv" *ngIf="!ready4" ><ion-spinner  class="spinner" id="#quiz_spinner" name="bubbles"></ion-spinner></div>
-
-<div class="boxwrapper">
-  <div *ngFor="let quiz of exercises; let i = index" >
-
-
-    <div *ngIf="(quiz.Type === 8) && quiz.Evaluation <= -100"  class="box">
-    <span class="prc">please wait for evaluation</span>
-  </div>
-  <div *ngIf="(quiz.Type === 8) && quiz.Evaluation >= 0"  class="box"  [routerLink]="['../../../../../../quiz/', lessonId, quiz.EvaluationID]" >
-  <span class="prc">{{quiz.Evaluation |  number:'1.0-0'}}%</span>
-</div>
-<div *ngIf="(quiz.Type === 8) && quiz.Evaluation === -1"  class="box"  [routerLink]="['../../../../../../quiz/', lessonId, 'do_quiz', quiz.ID]" >
-<span class="prc"></span>
-</div>
-
-    <div *ngIf="(quiz.Type !== 8)" class="box" [routerLink]="['../../../../../../quiz/', lessonId, 'do_quiz', quiz.ID]" >
-
-
-
-
-    <object  class="box_premium_icon" *ngIf="quiz.Subscrmodel === 1" type="image/svg+xml" data="/assets/images/premium.svg"></object>
-        <object  class="box_premium_icon" style="visibility:hidden;" *ngIf="quiz.Subscrmodel === 0" type="image/svg+xml" data="/assets/images/premium.svg"></object>
-    <img  *ngIf="(quiz.Type === 1 || quiz.Type === 2)" class='box_img'  src="/assets/images/quiz.jpg"/>
-    <img  *ngIf="quiz.Type === 6" class='box_img' src="/assets/images/quiz.jpg"/>
-    <img  *ngIf="quiz.Type === 3" class='icon'  class='box_img' src="/assets/images/quiz.jpg"/>
-    <img  *ngIf="quiz.Type === 7" class='box_img' [src]="lessonImage"/>
-    <img  *ngIf="quiz.Type === 9" class='icon'  class='box_img' src="/assets/images/write.jpg"/>
-    <img  *ngIf="quiz.Type === 10" class='icon'  class='box_img' src="/assets/images/speak.jpg"/>
-      <object  class="box_done_icon" *ngIf="quiz.Evaluation >= 80" type="image/svg+xml" data="/assets/images/done2.svg"></object>
-      <object  class="box_done_icon" style="visibility:hidden;" *ngIf="quiz.Evaluation < 80" type="image/svg+xml" data="/assets/images/done2.svg"></object>
-    <div class="boxname">{{quiz.Title}}</div>
-    <span *ngIf="quiz.Evaluation >= 0"class="prc">{{quiz.Evaluation |  number:'1.0-0'}}%</span>
-  </div>
-
-  </div>
-  </div>
-</div>
-
-
- </ion-content>
+</ion-content>
 
 <!--
  <ion-footer style="background-color: #001124;">

@@ -1,4 +1,3 @@
-
 <!--
 <ion-content>
   <div class='backgroundimage'>
@@ -40,38 +39,44 @@
 </ion-footer>
     -->
 
+<ion-content>
+  <div id="account" routerLink="/account">
+    <ion-icon id="account-icon" name="person"></ion-icon>
+  </div>
 
-    <ion-content>
+  <div class="title">Your Courses</div>
+  <div class="description">Select a course to get started</div>
 
+  <div id="search" (click)="all_cl()">
+    <ion-icon id="search-icon" name="search"></ion-icon
+    ><span id="search-text">search for courses</span>
+  </div>
 
+  <!-- <swiper-container>
+    <swiper-slide>Slide 1</swiper-slide>
+    <swiper-slide>Slide 2</swiper-slide>
+    <swiper-slide>Slide 3</swiper-slide>
+  </swiper-container> -->
 
-        <div id="account" routerLink="/account"><ion-icon id="account-icon" name="person" ></ion-icon></div>
+  <div class="content"></div>
+  <div class="wrapper">
+    <div class="spinnerdiv">
+      <ion-spinner id="spinner" *ngIf="!ready" name="bubbles"></ion-spinner>
+    </div>
+    <div class="course_wrapper" *ngFor="let course of courses; let i = index">
+      <div class="course">
+        <div><span class="course_name">{{course.Classroom_name}}</span></div>
+        <div class="course_description">{{course.Classroom_description}}</div>
 
-    <div class="title">Your Courses</div>
-    <div class='description'>Select a course to get started</div>
-
-<div id="search" (click)="all_cl()" ><ion-icon id="search-icon" name="search" ></ion-icon><span id="search-text">search for courses</span></div>
-
-
-
-
-
-    <div class='content'></div>
-    <div class="wrapper">
-        <div class="spinnerdiv"><ion-spinner  id="spinner" *ngIf="!ready" name="bubbles"></ion-spinner></div>
-      <div class="course_wrapper" *ngFor="let course of courses; let i = index">
-
-        <div class="course" >
-    <div><span class="course_name">{{course.Classroom_name}}</span></div>
-          <div class="course_description">{{course.Classroom_description}}</div>
-
-
-
-    <ion-button shape="round" color="white" class="entercourse" (click)=enter_cl(course.Classroom_ID)>study</ion-button>
-    <div>  <img class='course_img'  [src]="course.Classroom_image"/></div>
+        <ion-button
+          shape="round"
+          color="white"
+          class="entercourse"
+          (click)="enter_cl(course.Classroom_ID)"
+          >study</ion-button
+        >
+        <div><img class="course_img" [src]="course.Classroom_image" /></div>
       </div>
-      </div>
-      </div>
-
-
-    </ion-content>
+    </div>
+  </div>
+</ion-content>

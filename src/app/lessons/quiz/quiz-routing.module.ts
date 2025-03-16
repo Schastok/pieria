@@ -5,13 +5,14 @@ import { QuizPage } from './quiz.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: QuizPage
+    path: ':lessonId',
+    component: QuizPage,
   },
   {
-    path: 'do-quiz',
-    loadChildren: () => import('./do-quiz/do-quiz.module').then( m => m.DoQuizPageModule)
-  }
+    path: ':lessonId/do-quiz/:quizId',
+    loadChildren: () =>
+      import('./do-quiz/do-quiz.module').then((m) => m.DoQuizPageModule),
+  },
 ];
 
 @NgModule({

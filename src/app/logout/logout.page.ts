@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 //import { ApiService } from '../api.service';
-import { Storage } from '@ionic/storage';
+import { Preferences } from '@capacitor/preferences';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.page.html',
   styleUrls: ['./logout.page.scss'],
+  standalone: false,
 })
 export class LogoutPage implements OnInit {
-
-  constructor(private activatedRoute: ActivatedRoute, private storage: Storage, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-
-    this.storage.remove('userid').then((val) => {
-      this.storage.remove('key').then((val) => {
-        this.storage.remove('username').then((val) => {
-        this.router.navigate(['/login']);
+    Preferences.remove({ key: 'userid' }).then((val) => {
+      Preferences.remove({ key: 'key' }).then((val) => {
+        Preferences.remove({ key: 'username' }).then((val) => {
+          this.router.navigate(['/login']);
         });
       });
     });
-
-
   }
-
 }
