@@ -40,10 +40,10 @@ export class LessonsPage {
     // private statusBar: StatusBar,
     private location: Location
   ) {
-    this.platform.backButton.subscribeWithPriority(-1, () => {
-      console.log('HW button pressed, exiting....');
-      App.exitApp();
-    });
+    // this.platform.backButton.subscribeWithPriority(-1, () => {
+    //   console.log('HW button pressed, exiting....');
+    //   App.exitApp();
+    // });
     this.storage.create();
   }
 

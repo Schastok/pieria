@@ -34,10 +34,10 @@ export class MycoursesPage implements OnInit {
     private platform: Platform,
     private routerOutlet: IonRouterOutlet // private navigationBar: NavigationBar, // private statusBar: StatusBar
   ) {
-    this.platform.backButton.subscribeWithPriority(-1, () => {
-      console.log('HW button pressed, exiting....');
-      App.exitApp();
-    });
+    // this.platform.backButton.subscribeWithPriority(-1, () => {
+    //   console.log('HW button pressed, exiting....');
+    //   App.exitApp();
+    // });
   }
 
   ngOnInit() {

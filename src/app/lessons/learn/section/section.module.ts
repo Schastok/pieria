@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SectionPageRoutingModule } from './section-routing.module';
 import { PipesModule } from '../../../pipes/pipes.module';
 import { SectionPage } from './section.page';
+import Swiper from 'swiper';
 
 @NgModule({
   imports: [
@@ -18,5 +19,6 @@ import { SectionPage } from './section.page';
   ],
   declarations: [SectionPage],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [Swiper],
 })
 export class SectionPageModule {}

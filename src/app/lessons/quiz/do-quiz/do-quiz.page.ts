@@ -19,7 +19,8 @@ import { Media, MediaObject } from '@awesome-cordova-plugins/media/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 import { Location } from '@angular/common';
 import { Storage } from '@ionic/storage';
-
+import { VoiceRecorder } from 'capacitor-voice-recorder';
+let audioPlayer: HTMLAudioElement | null = null;
 @Component({
   selector: 'app-do-quiz',
   templateUrl: './do-quiz.page.html',
@@ -357,6 +358,8 @@ textarea{
 }
 
   </style>`;
+
+  base64Audio = '';
 
   constructor(
     // private admobFree: AdMobFree,
@@ -1521,52 +1524,59 @@ textarea{
     this.renderer.removeAttribute(htmldivelement, 'hidden');
   }
 
-  startrecording() {
+  async startrecording() {
+    const hasperm = await VoiceRecorder.hasAudioRecordingPermission();
+    if (!hasperm.value) {
+      const perm = await VoiceRecorder.requestAudioRecordingPermission();
+      if (perm.value) {
+        await VoiceRecorder.startRecording();
+        this.time = 0;
+        this.duration = 0;
+        this.startTimer();
+        this.record = 1;
+      } else {
+        console.log('permission not allowed');
+      }
+    } else {
+      await VoiceRecorder.startRecording();
+      this.time = 0;
+      this.duration = 0;
+      this.startTimer();
+      this.record = 1;
+    }
+  }
+
+  async stoprecording() {
+    const result = await VoiceRecorder.stopRecording();
+    this.base64Audio = result.value.recordDataBase64;
+    this.duration = this.time;
+    this.stopTimer();
+    this.record = 2;
+  }
+
+  play() {
+    this.stopTimer();
+    // this.audioFile.play();
+    const audio = new Audio('data:audio/aac;base64,' + this.base64Audio);
+    audio.play();
+    this.record = 3;
+    this.countdown();
+  }
+
+  stop() {
+    this.stopTimer();
+    const audio = new Audio('data:audio/aac;base64,' + this.base64Audio);
+    audio.pause();
+    this.record = 4;
+    this.stopTimer();
     this.time = 0;
-    this.duration = 0;
-    this.audioFile.startRecord();
-    this.startTimer();
-    this.record = 1;
   }
 
   deleterecording() {
-    var pathToFile = this.file.externalRootDirectory + '/audiotemp.mp3';
-    this.file.resolveLocalFilesystemUrl(pathToFile).then((entry: any) => {
-      var fileEntry = entry;
-      fileEntry.remove();
-      this.audioFile = this.media.create(
-        this.file.externalRootDirectory + '/audiotemp.mp3'
-      );
-      this.record = 0;
-      this.time = 0;
-      this.duration = 0;
-    });
-  }
-
-  stoprecording() {
-    this.duration = this.time;
-    this.stopTimer();
-    this.audioFile.stopRecord();
-    this.record = 2;
-    console.log(this.audioFile);
-    this.audioFile.release();
-    var pathToFile = this.file.externalRootDirectory + '/audiotemp.mp3';
-    console.log(pathToFile);
-    this.file.resolveLocalFilesystemUrl(pathToFile).then((entry: any) => {
-      var fileEntry = entry;
-      this.status = 'entry';
-      fileEntry.file((f: any) => {
-        console.log('file');
-        console.log(f);
-        this.status = 'found file';
-        var promise = this.readFile(f);
-        promise.then((r: any) => {
-          console.log('readfile');
-          console.log(r);
-          this.audiobinary = r;
-        });
-      });
-    });
+    this.base64Audio = '';
+    this.record = 0;
+    this.time = 0;
+    this.duration = 0;
   }
 
   startTimer() {
@@ -1613,20 +1623,6 @@ textarea{
       //fr.readAsArrayBuffer(file);
       fr.readAsDataURL(file);
     });
-  }
-
-  play() {
-    this.stopTimer();
-    this.audioFile.play();
-    this.record = 3;
-    this.countdown();
-  }
-
-  stop() {
-    this.audioFile.stop();
-    this.record = 4;
-    this.stopTimer();
-    this.time = 0;
   }
 
   goBack() {

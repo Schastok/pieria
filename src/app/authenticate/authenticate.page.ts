@@ -22,10 +22,10 @@ export class AuthenticatePage implements OnInit {
     private platform: Platform,
     private routerOutlet: IonRouterOutlet
   ) {
-    this.platform.backButton.subscribeWithPriority(-1, () => {
-      console.log('HW button pressed, exiting....');
-      App.exitApp();
-    });
+    // this.platform.backButton.subscribeWithPriority(-1, () => {
+    //   console.log('HW button pressed, exiting....');
+    //   App.exitApp();
+    // });
   }
 
   ngOnInit() {

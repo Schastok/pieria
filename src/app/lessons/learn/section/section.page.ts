@@ -612,25 +612,23 @@ export class SectionPage implements OnInit, AfterViewInit {
   ) {}
 
   ngAfterViewInit() {
-    this.didInit = true;
-    if (this.swiperContainer?.nativeElement) {
-      this.mySwiper = new Swiper(this.swiperContainer.nativeElement, {
-        slidesPerView: 1,
-        centeredSlides: true,
-        autoHeight: true,
-      });
-
-      this.mySwiper.allowTouchMove = false;
-
-      console.log('Swiper initialized with index:', this.mySwiper.activeIndex);
-    } else {
-      console.error('Swiper container not found!');
-      this.mySwiper = new Swiper(this.swiperContainer?.nativeElement, {
-        slidesPerView: 1,
-        centeredSlides: true,
-        autoHeight: true,
-      });
-    }
+    // this.didInit = true;
+    // if (this.swiperContainer?.nativeElement) {
+    //   this.mySwiper = new Swiper(this.swiperContainer.nativeElement, {
+    //     slidesPerView: 1,
+    //     centeredSlides: true,
+    //     autoHeight: true,
+    //   });
+    //   this.mySwiper.allowTouchMove = false;
+    //   console.log('Swiper initialized with index:', this.mySwiper.activeIndex);
+    // } else {
+    //   console.error('Swiper container not found!');
+    //   this.mySwiper = new Swiper(this.swiperContainer?.nativeElement, {
+    //     slidesPerView: 1,
+    //     centeredSlides: true,
+    //     autoHeight: true,
+    //   });
+    // }
   }
 
   ionViewDidEnter() {
