@@ -1534,6 +1534,11 @@ textarea{
         this.duration = 0;
         this.startTimer();
         this.record = 1;
+        // this.time = 0;
+        // this.duration = 0;
+        // this.audioFile.startRecord();
+        // this.startTimer();
+        // this.record = 1;
       } else {
         console.log('permission not allowed');
       }
@@ -1543,40 +1548,92 @@ textarea{
       this.duration = 0;
       this.startTimer();
       this.record = 1;
+      // this.time = 0;
+      // this.duration = 0;
+      // this.audioFile.startRecord();
+      // this.startTimer();
+      // this.record = 1;
     }
   }
 
   async stoprecording() {
     const result = await VoiceRecorder.stopRecording();
     this.base64Audio = result.value.recordDataBase64;
+    this.audiobinary = 'data:audio/aac;base64,' + this.base64Audio;
+    audioPlayer = new Audio('data:audio/aac;base64,' + this.base64Audio);
     this.duration = this.time;
     this.stopTimer();
     this.record = 2;
+    // this.duration = this.time;
+    // this.stopTimer();
+    // this.audioFile.stopRecord();
+    // this.record = 2;
+    // console.log(this.audioFile);
+    // this.audioFile.release();
+    // var pathToFile = this.file.externalRootDirectory + '/audiotemp.mp3';
+    // console.log(pathToFile);
+    // this.file.resolveLocalFilesystemUrl(pathToFile).then((entry: any) => {
+    //   var fileEntry = entry;
+    //   this.status = 'entry';
+    //   fileEntry.file((f: any) => {
+    //     console.log('file');
+    //     console.log(f);
+    //     this.status = 'found file';
+    //     var promise = this.readFile(f);
+    //     promise.then((r: any) => {
+    //       console.log('readfile');
+    //       console.log(r);
+    //       this.audiobinary = r;
+    //     });
+    //   });
+    // });
   }
 
   play() {
     this.stopTimer();
-    // this.audioFile.play();
-    const audio = new Audio('data:audio/aac;base64,' + this.base64Audio);
-    audio.play();
+    // const audio = new Audio('data:audio/aac;base64,' + this.base64Audio);
+    // audio.play();
+    audioPlayer.play();
     this.record = 3;
     this.countdown();
+    // this.stopTimer();
+    // this.audioFile.play();
+    // this.record = 3;
+    // this.countdown();
   }
 
   stop() {
     this.stopTimer();
-    const audio = new Audio('data:audio/aac;base64,' + this.base64Audio);
-    audio.pause();
+    // const audio = new Audio('data:audio/aac;base64,' + this.base64Audio);
+    // audio.pause();
+    audioPlayer.pause();
     this.record = 4;
     this.stopTimer();
     this.time = 0;
+    // this.audioFile.stop();
+    // this.record = 4;
+    // this.stopTimer();
+    // this.time = 0;
   }
 
   deleterecording() {
     this.base64Audio = '';
+    this.audiobinary = '';
+    audioPlayer = null;
     this.record = 0;
     this.time = 0;
     this.duration = 0;
+    // var pathToFile = this.file.externalRootDirectory + '/audiotemp.mp3';
+    // this.file.resolveLocalFilesystemUrl(pathToFile).then((entry: any) => {
+    //   var fileEntry = entry;
+    //   fileEntry.remove();
+    //   this.audioFile = this.media.create(
+    //     this.file.externalRootDirectory + '/audiotemp.mp3'
+    //   );
+    //   this.record = 0;
+    //   this.time = 0;
+    //   this.duration = 0;
+    // });
   }
 
   startTimer() {

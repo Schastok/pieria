@@ -1,119 +1,202 @@
-
-
-
 <ion-content>
- <ion-back-button></ion-back-button>
-<div id="account" routerLink="/account"><ion-icon id="account-icon" name="person" ></ion-icon></div>
- <div id="home" routerLink="/mycourses"><ion-icon id="home-icon" name="home" ></ion-icon></div>
-<div class="premium_err" *ngIf="!available"> This Section of the lesson is premium content. Please go to your account and upgrade to premium</div>
+  <ion-back-button></ion-back-button>
+  <div id="account" routerLink="/account">
+    <ion-icon id="account-icon" name="person"></ion-icon>
+  </div>
+  <div id="home" routerLink="/mycourses">
+    <ion-icon id="home-icon" name="home"></ion-icon>
+  </div>
+  <div class="premium_err" *ngIf="!available">
+    This Section of the lesson is premium content. Please go to your account and
+    upgrade to premium
+  </div>
   <div *ngIf="available">
-
-
-
-
-
-
-  <div *ngIf='!showsolution && !showwaiting' class='quizframe' >
-
-    <div class="spinnerdiv"><ion-spinner  id="spinner" *ngIf="!ready" name="bubbles"></ion-spinner></div>
-
-      <div class="description" *ngIf="quizType != 10 && quizType != 9"> {{ quizDescription }}</div>
-<form (ngSubmit)="submit($event)">
-
-
-
-  <div *ngIf="html" class="quizcontent" id="quizcontent" [innerHTML]="html | safe: 'html'"> </div>
-  <div *ngIf='quizType == 10' class='recording_handler'>
-
-  <div class="recording" *ngIf="record === 0"  (click)="startrecording()"><ion-icon class="icon_recording"  name="mic"></ion-icon></div>
-  <div class="recording2" *ngIf="record === 1"  (click)="stoprecording()"><ion-icon class="icon_recording" name="stop-circle"></ion-icon></div>
-  <div class="recording" *ngIf="record === 2"  (click)="play()"><ion-icon class="icon_recording" name="play"></ion-icon></div>
-  <div class="recording" *ngIf="record === 3"  (click)="stop()"><ion-icon class="icon_recording" name="stop"></ion-icon></div>
-  <div class="recording" *ngIf="record === 4"  (click)="deleterecording()"><ion-icon class="icon_recording" name="trash"></ion-icon></div>
-
-   <p *ngIf='record === 0'>Tap to start recording</p>
-  <p *ngIf='time > 0 && record === 1'>Recording ... {{time}}s</p>
-  <p *ngIf='record === 3'>0:<span *ngIf='time < 10'>0</span>{{time}}s</p>
-  <p *ngIf='record === 4 || record === 2'>0:<span *ngIf='duration < 10'>0</span>{{duration}}s</p>
-   </div>
-
-
-<div *ngIf='quizType == 1' class='answeropts'  id='answeropt' style='visibility: hidden;'>
-  <div *ngFor='let opt of answeropts; let i = index'>
-    <div class='dragbadge' id='ao{{i+1}}' (click)="doclick($event)">
-      {{opt}}
-    </div>
-  </div>
-</div>
-
-
-
-
-<div *ngIf='quizType == 7' class='answeropts'  id='answeropt'>
-  <div *ngFor='let opt of answeropts; let i = index'>
-    <div class='dragbadge' id='ao{{i+1}}' (click)="doclick7($event)">
-      {{opt}}
-    </div>
-  </div>
-</div>
-  <div id='slidecontrol'>
-  <ion-button shape="round" style="background-color:#008B8B" color="#008B8B" id="slidestart"  class="scont" *ngIf='hasslides && !next && !before' (click)="slidestart()">start</ion-button>
-  <div id='slidebefore' class="scont" *ngIf='quizType != 6 && (hasslides && before)' (click)="slidebefore()"><ion-icon name="return-up-back-outline" id="iconback"></ion-icon></div>
-  <div id='slidebefore2' class="scont" *ngIf='quizType == 6 && (hasslides && before)' (click)="slidebefore()"><ion-icon name="return-up-back-outline" id="iconback"></ion-icon></div>
-  <ion-button  shape="round" style="background-color:#F0F0F0" color="#F0F0F0" id="slidenext" disabled class="scont" *ngIf='hasslides && next && training' (click)="slidenext()">next</ion-button>
-  <ion-button  shape="round" style="background-color:#008B8B" color="#008B8B" id="slidenext" class="scont" *ngIf='hasslides && next && !training' (click)="slidenext()">next</ion-button>
-  <div id='submitdiv' *ngIf='quizType != 10 || record > 1'>
-  <ion-button shape="round" style="  background-color:#008B8B;" color="#008B8B" class="submit"  *ngIf='(!hasslides || slidecheck) && ready'  id="check" type="submit" name="submit"><span *ngIf="!spinner" >Check</span><ion-spinner  *ngIf="spinner" name="bubbles"></ion-spinner></ion-button>
-  </div>
-  </div>
-
-  <div class="training_wrapper" *ngIf="training">
-    <div class="training_card">
-  <ion-icon class="training_icon" name="bulb-outline"></ion-icon>
-  <span class="training_instructions">{{training_text}}</span>
-  </div>
-    </div>
-
-
-    <div class="error_wrapper" *ngIf="error">
-      <div class="error_card">
-    <ion-icon class="error_icon" name="alert-circle-outline"></ion-icon>
-    <span class="error_instructions">{{error_text}}</span>
-    </div>
+    <div *ngIf="!showsolution && !showwaiting" class="quizframe">
+      <div class="spinnerdiv">
+        <ion-spinner id="spinner" *ngIf="!ready" name="bubbles"></ion-spinner>
       </div>
 
+      <div class="description" *ngIf="quizType != 10 && quizType != 9">
+        {{ quizDescription }}
+      </div>
+      <form (ngSubmit)="submit($event)">
+        <div
+          *ngIf="html"
+          class="quizcontent"
+          id="quizcontent"
+          [innerHTML]="html | safe: 'html'"
+        ></div>
+        <div *ngIf="quizType == 10" class="recording_handler">
+          <div
+            class="recording"
+            *ngIf="record === 0"
+            (click)="startrecording()"
+          >
+            <ion-icon class="icon_recording" name="mic"></ion-icon>
+          </div>
+          <div
+            class="recording2"
+            *ngIf="record === 1"
+            (click)="stoprecording()"
+          >
+            <ion-icon class="icon_recording" name="stop-circle"></ion-icon>
+          </div>
+          <div class="recording" *ngIf="record === 2" (click)="play()">
+            <ion-icon class="icon_recording" name="play"></ion-icon>
+          </div>
+          <div class="recording" *ngIf="record === 3" (click)="stop()">
+            <ion-icon class="icon_recording" name="stop"></ion-icon>
+          </div>
+          <div
+            class="recording"
+            *ngIf="record === 4"
+            (click)="deleterecording()"
+          >
+            <ion-icon class="icon_recording" name="trash"></ion-icon>
+          </div>
 
+          <p *ngIf="record === 0">Tap to start recording</p>
+          <p *ngIf="time > 0 && record === 1">Recording ... {{time}}s</p>
+          <p *ngIf="record === 3">
+            0:<span *ngIf="time < 10">0</span>{{time}}s
+          </p>
+          <p *ngIf="record === 4 || record === 2">
+            0:<span *ngIf="duration < 10">0</span>{{duration}}s
+          </p>
+        </div>
 
+        <div
+          *ngIf="quizType == 1"
+          class="answeropts"
+          id="answeropt"
+          style="visibility: hidden"
+        >
+          <div *ngFor="let opt of answeropts; let i = index">
+            <div class="dragbadge" id="ao{{i+1}}" (click)="doclick($event)">
+              {{opt}}
+            </div>
+          </div>
+        </div>
 
+        <div *ngIf="quizType == 7" class="answeropts" id="answeropt">
+          <div *ngFor="let opt of answeropts; let i = index">
+            <div class="dragbadge" id="ao{{i+1}}" (click)="doclick7($event)">
+              {{opt}}
+            </div>
+          </div>
+        </div>
+        <div id="slidecontrol">
+          <ion-button
+            shape="round"
+            style="background-color: #008b8b"
+            color="#008B8B"
+            id="slidestart"
+            class="scont"
+            *ngIf="hasslides && !next && !before"
+            (click)="slidestart()"
+            >start</ion-button
+          >
+          <div
+            id="slidebefore"
+            class="scont"
+            *ngIf="quizType != 6 && (hasslides && before)"
+            (click)="slidebefore()"
+          >
+            <ion-icon name="return-up-back-outline" id="iconback"></ion-icon>
+          </div>
+          <div
+            id="slidebefore2"
+            class="scont"
+            *ngIf="quizType == 6 && (hasslides && before)"
+            (click)="slidebefore()"
+          >
+            <ion-icon name="return-up-back-outline" id="iconback"></ion-icon>
+          </div>
+          <ion-button
+            shape="round"
+            style="background-color: #f0f0f0"
+            color="#F0F0F0"
+            id="slidenext"
+            disabled
+            class="scont"
+            *ngIf="hasslides && next && training"
+            (click)="slidenext()"
+            >next</ion-button
+          >
+          <ion-button
+            shape="round"
+            style="background-color: #008b8b"
+            color="#008B8B"
+            id="slidenext"
+            class="scont"
+            *ngIf="hasslides && next && !training"
+            (click)="slidenext()"
+            >next</ion-button
+          >
+          <div id="submitdiv" *ngIf="quizType != 10 || record > 1">
+            <ion-button
+              shape="round"
+              style="background-color: #008b8b"
+              color="#008B8B"
+              class="submit"
+              *ngIf="(!hasslides || slidecheck) && ready"
+              id="check"
+              type="submit"
+              name="submit"
+              ><span *ngIf="!spinner">Check</span
+              ><ion-spinner *ngIf="spinner" name="bubbles"></ion-spinner
+            ></ion-button>
+          </div>
+        </div>
 
+        <div class="training_wrapper" *ngIf="training">
+          <div class="training_card">
+            <ion-icon class="training_icon" name="bulb-outline"></ion-icon>
+            <span class="training_instructions">{{training_text}}</span>
+          </div>
+        </div>
 
+        <div class="error_wrapper" *ngIf="error">
+          <div class="error_card">
+            <ion-icon class="error_icon" name="alert-circle-outline"></ion-icon>
+            <span class="error_instructions">{{error_text}}</span>
+          </div>
+        </div>
+      </form>
+    </div>
 
-</form>
-</div>
+    <div *ngIf="showsolution" class="quizframe" id="t1">
+      <div class="description" *ngIf="quizType != 10 && quizType != 9">
+        {{ quizDescription }}
+      </div>
+      <div id="scorediv">
+        <div id="score" *ngIf="showscore">
+          <b>Your score: {{solutiondata.score}} / {{solutiondata.total}} </b>
+        </div>
+      </div>
+      <div
+        class="quizcontent"
+        [innerHTML]="solutionhtml | safe: 'html'"
+        hidden="true"
+        id="solhtml"
+      ></div>
+    </div>
 
-<div *ngIf='showsolution' class='quizframe' id='t1'>
+    <div *ngIf="showsolution" id="togglecontrol">
+      <span class="toggle_lable">Solution</span
+      ><label class="switch">
+        <input type="checkbox" id="toggleinput" (click)="toggle()" />
+        <span class="slider round"></span>
+      </label>
 
-      <div class="description" *ngIf="quizType != 10 && quizType != 9"> {{ quizDescription }}</div>
-  <div id='scorediv'>
-  <div id='score' *ngIf='showscore'> <b>Your score: {{solutiondata.score}} / {{solutiondata.total}} </b></div>
+      <span class="toggle_lable">Your Answer</span>
+    </div>
+    <div *ngIf="showwaiting" class="quizframe" id="t1">
+      <div class="content">Thank you for submitting your solution</div>
 
-
-
-</div>
-<div class="quizcontent" [innerHTML]="solutionhtml | safe: 'html'" hidden='true' id='solhtml' > </div>
-</div>
-
-<div *ngIf='showsolution' id="togglecontrol"><span class="toggle_lable">Solution</span><label class="switch">
-
-  <input type="checkbox" id='toggleinput' (click)="toggle()">
-  <span class="slider round"></span>
-</label>
-
-<span class="toggle_lable">Your Answer</span></div>
-<div *ngIf='showwaiting' class='quizframe' id='t1'>
-  <div class='content'>Thank you for submitting your solution</div>
-
-<div class="quizcontent">Please be patient while a teacher will check your submission</div>
-</div>
-</div>
+      <div class="quizcontent">
+        Please be patient while a teacher will check your submission
+      </div>
+    </div>
+  </div>
 </ion-content>

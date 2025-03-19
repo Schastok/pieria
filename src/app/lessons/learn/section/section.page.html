@@ -1,15 +1,21 @@
 <ion-header>
   <ion-toolbar color="white">
-    <ion-buttons slot="end">
-      <div id="home" routerLink="/mycourses">
+    <div
+      style="
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+      "
+    >
+      <div id="home" style="margin-right: 5px" routerLink="/mycourses">
         <ion-icon id="home-icon" name="home"></ion-icon>
       </div>
-    </ion-buttons>
-    <ion-buttons slot="end">
-      <div id="account" routerLink="/account">
+
+      <div id="account" style="margin-right: 36px" routerLink="/account">
         <ion-icon id="account-icon" name="person"></ion-icon>
       </div>
-    </ion-buttons>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -63,25 +69,36 @@
   </div>
 </ion-content>
 <ion-footer>
-  <div style="text-align: center" *ngIf="sectiondetails?.length">
-    <ion-buttons>
-      <ion-button
-        *ngIf="swiperRef.swiper.isEnd"
-        (click)="swiperRef.swiper.slidePrev()"
-        class="navigation"
-        id="nav-prev"
-        ><ion-icon name="chevron-back-outline"></ion-icon
-      ></ion-button>
-    </ion-buttons>
+  <ion-toolbar>
+    <div
+      style="
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 36px;
+      "
+      *ngIf="sectiondetails?.length"
+    >
+      <ion-buttons>
+        <ion-button
+          *ngIf="swiperRef.swiper.activeIndex != 0"
+          (click)="swiperRef.swiper.slidePrev()"
+          class="navigation"
+          id="nav-prev"
+          ><ion-icon name="chevron-back-outline"></ion-icon
+        ></ion-button>
+      </ion-buttons>
 
-    <ion-buttons>
-      <ion-button
-        *ngIf="swiperRef.swiper.isBeginning"
-        (click)="swiperRef.swiper.slideNext()"
-        class="navigation"
-        id="nav-next"
-        ><ion-icon name="chevron-forward-outline"></ion-icon
-      ></ion-button>
-    </ion-buttons>
-  </div>
+      <ion-buttons>
+        <ion-button
+          *ngIf="!swiperRef.swiper.isEnd"
+          (click)="swiperRef.swiper.slideNext()"
+          class="navigation"
+          id="nav-next"
+          ><ion-icon name="chevron-forward-outline"></ion-icon
+        ></ion-button>
+      </ion-buttons>
+    </div>
+  </ion-toolbar>
 </ion-footer>

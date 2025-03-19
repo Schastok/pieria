@@ -175,12 +175,17 @@ ion-footer {
 //   width: 100%;
 // }
 
+.qoute-start {
+  max-width: 40px;
+}
+
 .navigation {
   // margin-bottom: 10%;
   // margin-top: 10%;
   background-color: #008b8b;
   border-radius: 50px;
   height: 50px;
+  margin: 6px;
   width: 50px;
   text-align: center;
 }
@@ -191,6 +196,14 @@ ion-footer {
 }
 .slide {
   text-align: center;
+  height: 600px;
+  overflow-y: auto !important;
+  padding: 20px 10px 60px 10px;
+  video {
+    max-width: 300px;
+  }
+  img {
+  }
 }
 
 #nav-next {
