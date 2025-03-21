@@ -188,6 +188,8 @@ ion-footer {
   margin: 6px;
   width: 50px;
   text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 #nav-back {
@@ -288,4 +290,38 @@ ion-footer {
   left: 10%;
   font-weight: 400;
   color: black;
+}
+audio {
+min-width: 90vw!important;
+  border-radius: 10px;
+  margin-top:150px;
+}
+
+audio::-webkit-media-controls-panel {
+  background-color: #008086;
+}
+
+audio::-webkit-media-controls-play-button {
+  filter: invert(1);
+}
+
+audio::-webkit-media-controls-timeline {
+  filter: invert(1);
+}
+
+#icon-back{
+  color: white;
+  font-weight: bold;
+
+}
+
+#icon-next{
+
+  color: white;
+  font-weight: bold;
+
+}
+
+ion-toolbar{
+  height: 100px;
 }

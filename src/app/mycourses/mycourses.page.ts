@@ -25,7 +25,7 @@ register();
 export class MycoursesPage implements OnInit {
   courses;
   ready = false;
-
+  empty = false;
   constructor(
     // private admobFree: AdMobFree,
     private router: Router,
@@ -69,6 +69,9 @@ export class MycoursesPage implements OnInit {
       this.courses = data;
       this.apiService.CLASSROOM_DATA = data;
       this.ready = true;
+      if(this.courses.length === 0){
+        this.empty = true;
+      }
     });
   }
 

@@ -63,6 +63,7 @@
     <div class="spinnerdiv">
       <ion-spinner id="spinner" *ngIf="!ready" name="bubbles"></ion-spinner>
     </div>
+    <div *ngIf="empty" class="empty">You didn't enroll into any courses yet. Use the search button to look for courses.</div>
     <div class="course_wrapper" *ngFor="let course of courses; let i = index">
       <div class="course">
         <div><span class="course_name">{{course.Classroom_name}}</span></div>
