@@ -94,14 +94,15 @@ export class CoursedetailsPage implements OnInit {
           role: 'cancel',
           cssClass: 'secondary',
           handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+            console.log('Confirm Cancel');
           },
         },
         {
           text: 'Yes!',
           handler: () => {
             console.log('Sign up to Classroom: ', Classroom_ID);
-
+            this.apiService.CLASSROOM_ID = Classroom_ID;
+            this.New = '3';
             this.apiService
               .getstudentassigned(Classroom_ID)
               .subscribe((data) => {

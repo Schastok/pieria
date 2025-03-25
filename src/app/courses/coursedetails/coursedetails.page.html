@@ -14,6 +14,9 @@
 
 
   <div class="buttonfields">
+    <div class="spinnerdiv">
+      <ion-spinner id="spinner" *ngIf="New === '3'" name="bubbles"></ion-spinner>
+    </div>
 <ion-button *ngIf="New === '1'" shape="round" color="white" class="entercourse" (click)="presentAlertConfirm(ClassroomId, ClassroomName)">signup</ion-button>
   </div>
 </ion-content>

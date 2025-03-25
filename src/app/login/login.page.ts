@@ -39,9 +39,6 @@ export class LoginPage implements OnInit {
       let storagekey = await Preferences.get({ key: 'key' });
       let storageuserid = await Preferences.get({ key: 'userid' });
       let storageusername = await Preferences.get({ key: 'username' });
-      console.log(storagekey);
-      console.log(storageuserid);
-      console.log(storageusername);
       if (storagekey.value && storageuserid.value && storageusername.value) {
         console.log('Great, everything is there!!!!');
         apiService.TOKEN = storagekey.value;
@@ -50,6 +47,9 @@ export class LoginPage implements OnInit {
         router.navigate(['/mycourses']);
       } else {
         console.log('ugh, i need to log in first...');
+        console.log('Retrieved key:', storagekey.value);
+        console.log('Retrieved userid:', storageuserid.value);
+        console.log('Retrieved username:', storageusername.value);
       }
       return {};
     }
@@ -65,8 +65,10 @@ export class LoginPage implements OnInit {
     this.apiService.authenticate(username, password).subscribe(
       (data) => {
         Preferences.set({ key: 'key', value: data['token'] });
+        console.log('Saved key: ', data['token']);
         let storagekey = data['token'];
         this.apiService.TOKEN = storagekey;
+        console.log('Saved ID: ', this.apiService.STUDENT_ID);
         this.router.navigate(['/mycourses']);
       },
       (error) => {
@@ -82,13 +84,17 @@ export class LoginPage implements OnInit {
       }
     );
     this.apiService.getuserid(username).subscribe(
-      (data) => {
-        Preferences.set({ key: 'userid', value: data['id'] });
-        let storageuserid = data['id'];
-        this.apiService.STUDENT_ID = storageuserid;
-        console.log(data['id']);
-      },
-      (error) => {}
+      async (data) => {
+        console.log('Received user ID:', data['id']); // Check if it's null or undefined
+        if (!data['id']) {
+          console.log('Error: User ID is undefined or null');
+          return;
+        }
+        await Preferences.set({ key: 'userid', value: String(data['id']) });
+        let storedUserId = (await Preferences.get({ key: 'userid' })).value;
+        console.log('Stored userid:', storedUserId);
+        this.apiService.STUDENT_ID  = storedUserId;
+      }
     );
   }
 }

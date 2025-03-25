@@ -65,12 +65,14 @@ export class MycoursesPage implements OnInit {
 
   ionViewWillEnter() {
     this.apiService.getstudentcls().subscribe((data) => {
+      this.empty = false;
       console.log(data);
       this.courses = data;
       this.apiService.CLASSROOM_DATA = data;
       this.ready = true;
-      if(this.courses.length === 0){
+      if(this.courses.length < 1){
         this.empty = true;
+        console.log("classroom list is empty ");
       }
     });
   }

@@ -15,7 +15,7 @@ export class ApiService {
   TEST = false;
   URL;
   CLASSROOM_DATA;
-  CLASSROOM_ID = '10';
+  CLASSROOM_ID = '0';
   STUDENT_ID = '4';
   SIZE;
   TOKEN;
